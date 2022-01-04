@@ -19,12 +19,18 @@ class Game
         end
     end
 
+    def winner(name, lives)
+        puts "#{name} wins with a score of #{lives}/3"
+        puts "----- Game Over -----"
+        puts "Good bye!"
+        exit(0)
+    end
+
 
     def start_game
         puts @welcome
         count = @current_player.lives
-        while count > 0 do
-            show_scores
+        while count >= 1 do
             question = Question.new(@current_player)
             question.print_question
             @user_input = gets.chomp
@@ -34,9 +40,16 @@ class Game
                 puts "Seriously? No!"
                 @current_player.lose_a_life
             end
+            if @current_player.lives < 1 
+                if @current_player.name == @player_1.name
+                winner(@player_2.name, @player_2.lives)
+                else
+                winner(@player_1.name, @player_1.lives)
+                end  
+            end
+            show_scores
             switch_current_player
             count = @current_player.lives  
         end
-        show_scores
     end
 end
