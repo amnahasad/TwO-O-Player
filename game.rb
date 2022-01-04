@@ -15,22 +15,28 @@ class Game
     def switch_current_player
         if @current_player == @player_1
             @current_player = @player_2
-        else @current_player
+        else @current_player = @player_1
         end
     end
 
 
     def start_game
         puts @welcome
-        show_scores
-        question = Question.new()
-        question.print_question
-        @user_input = gets.chomp
-        if question.check_correct_answer(@user_input)
-            puts "Yes! You are correct"
-        else 
-            puts "Seriously? No!"
+        count = @current_player.lives
+        while count > 0 do
+            show_scores
+            question = Question.new(@current_player)
+            question.print_question
+            @user_input = gets.chomp
+            if question.check_correct_answer(@user_input)
+                puts "Yes! You are correct"
+            else 
+                puts "Seriously? No!"
+                @current_player.lose_a_life
+            end
+            switch_current_player
+            count = @current_player.lives  
         end
+        show_scores
     end
-
 end

@@ -1,9 +1,10 @@
 class Question
 
-    def initialize
+    def initialize(current_player)
         @num1 = rand(1..20)
         @num2 = rand(1..20)
         @sum = @num1 + @num2
+        @current_player = current_player.name
     end
 
 
