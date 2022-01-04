@@ -1,3 +1,3 @@
-class main 
-
-end
+require './question'
+require './players'
+require './game'
